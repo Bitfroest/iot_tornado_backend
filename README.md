@@ -75,3 +75,164 @@ docker rm <container-name>
 Type the IP address of the raspberry Pi in your browser and check if the server responds
 (*Note*: You need to be in the same network)
 
+
+# Type Definitions
+
+## Sending JSON Data
+The following code block is an example of setting the battery to 30% at a specified timestamp.
+```
+{
+    "value": {
+        "battery" : 0.3
+    },
+    "timestamp" : "2018-08-22 12:32:30.495815"
+}
+```
+Timestamps should be in a standardized format which is understandable by PostgreSQL like the _ISO 8601_ format  
+`"yyyy-MM-dd'T'HH:mm:ss.SSS'Z"`
+
+## Example type definition
+### Text
+
+```
+    ...
+    "text": {
+        "type": "Text",
+        "label": "Test",
+        "placeholder": "Bla"
+    }
+    ...
+```
+
+You can use the `inputType` to change the input type of the input field between `text`(default), `number` and `textarea`.
+```
+    ...
+    "text2" : {
+        "type": "Text"
+        "label": "Nummer Eingabe 2"
+        "inputType": "number"
+    }
+    ...
+```
+### Date and Time picker
+
+```
+    ...
+    "time": {
+        "type": "DateTimePicker"
+    }
+    ...
+```
+
+```
+    ...
+    "time": {
+        "type": "DateTimePicker",
+        "label": "Zeit",
+        "dateFormat": "LLL",
+        "timeFormat": "HH:mm",
+        "timeIntervals": 15,
+        "showTimeSelect": true,
+        "showTimeSelectOnly": true
+    }
+    ...
+```
+
+
+### Calendar Week
+
+```
+    ...
+    "alarm": {
+        "type": "Alarm",
+        "label": "Calendar Week Alarm"
+    }
+    ...
+```
+
+### Dropdown Selection
+
+```
+    ...
+    "select": {
+        "type": "Select",
+        "label": "Dropdown",
+        "options": [
+            {
+                "label": "Chocolate",
+                "value": "chocolate"
+            },
+            {
+                "label": "Vanilla",
+                "value": "vanilla"
+            },
+            {
+                "label": "Strawberry",
+                "value": "strawberry"
+            }
+        ]
+    }
+    ...
+```
+
+### Switch
+
+```
+    ...
+    "switch": {
+        "type": "Boolean",
+        "style": "ParkingLot"
+    }
+    ...
+```
+
+```
+    ...
+    "switch2": {
+        "type": "Boolean",
+        "label": "Test",
+        "style": "Switch"
+    }
+    ...
+```
+
+```
+    ...
+    "switch3": {
+        "type": "Boolean",
+        "style": "Switch",
+        "isDisabled": true
+    }
+    ...
+```
+
+### Battery level
+
+```
+    ...
+    "battery": {
+        "type": "Battery"
+    }
+    ...
+```
+
+### Single Value with zoomable plot
+
+```
+    ...
+    "temperature": {
+        "type": "ValuePlot",
+        "unit": "°C",
+        "label": "Temperature",
+        "FlexibleWidthXYPlot": {
+            "xType": "time",
+            "height": 300,
+            "yDomain": [
+                0,
+                40
+            ]
+        }
+    }
+    ...
+```
+
