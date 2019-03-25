@@ -1,5 +1,5 @@
 tornado==4.5.2
-Django==2.0.4
+django>=2.0.11
 psycopg2==2.7.5
 pyMongo==3.6.1
 momoko==2.2.4
