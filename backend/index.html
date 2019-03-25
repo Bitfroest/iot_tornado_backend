@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tornado iot</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">
+            <hr>
+              WebSocket status : <span id="message"></span>
+            <hr>
+            <div class="row">
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" placeholder="Websocket send" aria-label="Websocket send" aria-describedby="basic-addon2" id="data">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="send">Send</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <button class="btn btn-secondary" type="button" id="getSensors">Get Sensors</button>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <script>
+            var host = window.location.host;
+            var ws = new WebSocket('ws://'+host+'/ws/5af88009561ec04774ca9fd8');
+            var $message = $('#message');
+
+            ws.onopen = function(){
+                $message.attr("class", 'badge badge-success');
+                $message.text('open');
+            };
+            ws.onmessage = function(str){
+                console.log("Someone sent: ", str);
+            };
+            ws.onclose = function(ev){
+                $message.attr("class", 'badge badge-important');
+                $message.text('closed');
+            };
+            ws.onerror = function(ev){
+                $message.attr("class", 'badge badge-warning');
+                $message.text('error occurred');
+            };
+            $('#send').click(function(){
+                ws.send($('#data').val());
+            });
+            $('#getSensors').click(function(){
+                $.ajax({url: "http://"+host+"/main", success: function(result){
+                    $("#div1").html(result);
+                }});
+            });
+        </script>
+    </body>
+</html>

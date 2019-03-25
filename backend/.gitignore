@@ -1,0 +1,4 @@
+database.ini
+__pycache__
+__pycache__/*
+build/

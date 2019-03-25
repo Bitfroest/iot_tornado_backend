@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1-beta" last-position="0,431" last-zoom="1.35"
+	 default-schema="public" default-owner="postgres">
+<database name="iot">
+	<role name="postgres"/>
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<extension name="postgis">
+	<schema name="public"/>
+</extension>
+
+<table name="sensor">
+	<schema name="public"/>
+	<position x="420" y="580"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="note">
+		<type name="text" length="0"/>
+	</column>
+	<column name="coordinates">
+		<type name="geography" length="0" spatial-type="POINT" variation="0" srid="0"/>
+	</column>
+	<constraint name="sensors_pk" type="pk-constr" table="public.sensor">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_sensor_type" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="sensor_type_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="data">
+	<schema name="public"/>
+	<position x="1060" y="420"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="value">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="timestamp" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="created" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="data_pk" type="pk-constr" table="public.data">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_sensor" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="sensor_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="sensor_type">
+	<schema name="public"/>
+	<position x="1060" y="780"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="typedef">
+		<type name="jsonb" length="0"/>
+	</column>
+	<constraint name="sensor_type_pk" type="pk-constr" table="public.sensor_type">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="sensor_type_has_many_sensors" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.sensor_type"
+	 dst-table="public.sensor"
+	 src-required="true" dst-required="false"
+	del-action="CASCADE"/>
+
+<relationship name="sensors_has_many_data" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.sensor"
+	 dst-table="public.data"
+	 src-required="true" dst-required="false"
+	del-action="CASCADE"/>
+
+</dbmodel>
