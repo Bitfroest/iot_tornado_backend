@@ -93,7 +93,7 @@ Timestamps should be in a standardized format which is understandable by Postgre
 
 ## Example type definition
 ### Text
-
+![image](https://user-images.githubusercontent.com/11216482/54961601-b181b300-4f61-11e9-8ba4-a136f92a9383.png)
 ```
     ...
     "text": {
@@ -115,7 +115,7 @@ You can use the `inputType` to change the input type of the input field between 
     ...
 ```
 ### Date and Time picker
-
+![image](https://user-images.githubusercontent.com/11216482/54961626-c9593700-4f61-11e9-94d8-3de0302a789a.png)
 ```
     ...
     "time": {
@@ -140,6 +140,7 @@ You can use the `inputType` to change the input type of the input field between 
 
 
 ### Calendar Week
+![image](https://user-images.githubusercontent.com/11216482/54961644-daa24380-4f61-11e9-9009-403fd6437cf2.png)
 
 ```
     ...
@@ -151,7 +152,7 @@ You can use the `inputType` to change the input type of the input field between 
 ```
 
 ### Dropdown Selection
-
+![image](https://user-images.githubusercontent.com/11216482/54961661-e857c900-4f61-11e9-9591-0192d145f769.png)
 ```
     ...
     "select": {
@@ -176,7 +177,7 @@ You can use the `inputType` to change the input type of the input field between 
 ```
 
 ### Switch
-
+![image](https://user-images.githubusercontent.com/11216482/54961676-f574b800-4f61-11e9-9edb-e9e1b37040f7.png)
 ```
     ...
     "switch": {
@@ -207,7 +208,7 @@ You can use the `inputType` to change the input type of the input field between 
 ```
 
 ### Battery level
-
+![image](https://user-images.githubusercontent.com/11216482/54961689-ff96b680-4f61-11e9-9924-1a3ccbc49b6b.png)
 ```
     ...
     "battery": {
@@ -217,7 +218,7 @@ You can use the `inputType` to change the input type of the input field between 
 ```
 
 ### Single Value with zoomable plot
-
+![image](https://user-images.githubusercontent.com/11216482/54961706-0f15ff80-4f62-11e9-8202-de9b3206b030.png)
 ```
     ...
     "temperature": {
