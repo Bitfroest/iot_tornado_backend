@@ -1,0 +1,3 @@
+[submodule "iot_react_frontend"]
+	path = iot_react_frontend
+	url = https://github.com/Bitfroest/iot_react_frontend
