@@ -79,6 +79,11 @@ Type the IP address of the raspberry Pi in your browser and check if the server 
 
 As of now there are hundrets of possibilities to use in IoT for the backend (server side) and/ or frontend (client side). In the following we want to describe what we have choosen for the practical lab course and why we choose what we choose.
 
+## Architecture
+![basic architecture](https://user-images.githubusercontent.com/11216482/54962266-6d43e200-4f64-11e9-84a0-f25ccacce5cf.png)
+![detailed architecture](https://user-images.githubusercontent.com/11216482/54962340-b1cf7d80-4f64-11e9-94f5-2e08dda76c6f.png)
+
+
 ## Apache/ Nginx
 
 Start Apache2 server
@@ -115,6 +120,134 @@ cat your_dump.sql | docker exec -i your-db-container psql -Upostgres
 psql into docker container to do queries
 ```
 docker exec -ti NAME_OF_CONTAINER psql -U YOUR_POSTGRES_USERNAME
+```
+
+## RESTfulAPI
+
+- `./  `
+- `./api/sensors`  
+- `./api/sensor/<id>`  
+- `./api/sensortypes`  
+- `./api/sensortype/<id>`  
+- `./api/sensor/<id>/data`  
+- `./api/sensor/<id>/data/<attribute>`  
+Websockets for Sensordata  
+- `./ws/<sensor_id>`  
+    
+**`./api/sensors`**  
+GET, POST   
+Returns:  
+JSON array of sensors  
+
+```
+{
+	"id": 1,
+	"name": "TestSensor",
+	"note": "",
+	"coordinates": "0101000020E610000000000000000000000000000000000000",
+	"id_sensor_type": 1,
+	"coordinatesjson": {
+		"type": "Point",
+		"coordinates": [
+			0,
+			0
+		]
+	}
+}
+```
+
+**`./api/sensortypes`**  
+GET, POST  
+JSON array of sensor types  
+
+```
+[
+	{
+		"id": 1,
+		"name": "TestType",
+		"typedef": {
+			"Trash": {
+				"type": "Wastebin",
+				"position": "center"
+			},
+			"Battery": {
+				"type": "Battery"
+			}
+		}
+	},
+]
+```
+
+
+**`./api/sensor(type)/<id>`**  
+GET, PUT, DELETE  
+JSON of sensor or sensor type  
+
+**`./api/sensor/<sensor_id>/data`**  
+GET, POST  
+JSON array of (sensor) data  
+similar to websocket endpoint  
+
+```
+{  "results": [
+		"id": 83,
+		"value": {
+			"Trash": 0.01
+		},
+		"id_sensor": 1,
+		"timestamp": {
+			"$date": 1536529153266
+		},
+		"created": {
+			"$date": 1536529153266
+		}
+    ],
+"id_sensor": "1"
+}
+```
+
+**`./api/sensor/<sensor_id>/data/<key>`**
+GET  
+JSON array of data  
+last 100 entries of a key/ attribute  
+
+```
+{  "results": [
+		"id": 83,
+		"value": {
+			"Trash": 0.01
+		},
+		"id_sensor": 1,
+		"timestamp": {
+			"$date": 1536529153266
+		},
+		"created": {
+			"$date": 1536529153266
+		}
+],
+"id_sensor": "1"
+}
+```
+
+**`./ws/<sensor_id>`**  
+get last entries of all keys  
+push new data  
+```
+{  "results": [
+		"id": 83,
+		"value": {
+			"Trash": 0.01
+		},
+		"id_sensor": 1,
+		"timestamp": {
+			"$date": 1536529153266
+		},
+		"created": {
+			"$date": 1536529153266
+		}
+],
+"id_sensor": "1"
+}
 ```
 
 # Type Definitions defined in Frontend
