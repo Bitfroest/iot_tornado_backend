@@ -75,8 +75,49 @@ docker rm <container-name>
 Type the IP address of the raspberry Pi in your browser and check if the server responds
 (*Note*: You need to be in the same network)
 
+# Backend
 
-# Type Definitions
+As of now there are hundrets of possibilities to use in IoT for the backend (server side) and/ or frontend (client side). In the following we want to describe what we have choosen for the practical lab course and why we choose what we choose.
+
+## Apache/ Nginx
+
+Start Apache2 server
+```
+$ sudo /etc/init.d/apache2 restart
+```
+
+Stop Apache2 server
+```
+$ sudo /etc/init.d/apache2 stop
+```
+
+Create symlink for domain
+```
+sudo ln -s /etc/apache2/sites-available/example.com /etc/apache2/sites-enabled/example.com
+```
+
+## PostgreSQL
+
+Backup database
+```
+docker exec -t -u postgres your-db-container pg_dumpall -c > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+```
+
+Restore database or apply migrations/ database changes via sql file
+```
+cat your_dump.sql | docker exec -i your-db-container psql -Upostgres
+```
+
+## Tornado
+
+## Docker
+
+psql into docker container to do queries
+```
+docker exec -ti NAME_OF_CONTAINER psql -U YOUR_POSTGRES_USERNAME
+```
+
+# Type Definitions defined in Frontend
 
 ## Sending JSON Data
 The following code block is an example of setting the battery to 30% at a specified timestamp.
